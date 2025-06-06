@@ -1,0 +1,6 @@
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Capa de fondo: será tu color rosado -->
+    <background android:drawable="@color/notification_color"/>
+    <!-- Capa de primer plano: tu silueta (monocromo negro o transparente) -->
+    <foreground android:drawable="@drawable/ic_stat_icon"/>
+</adaptive-icon>

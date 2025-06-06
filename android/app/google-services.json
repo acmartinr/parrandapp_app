@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "325388393631",
+    "project_id": "eventsapp-93fc0",
+    "storage_bucket": "eventsapp-93fc0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325388393631:android:d75f8bc7870f01070256aa",
+        "android_client_info": {
+          "package_name": "com.msystems.parrandapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOjFRyIiWKPH2iyhIuXtA3xsZhJbx_ebA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
