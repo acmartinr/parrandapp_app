@@ -6,9 +6,9 @@ import 'package:lexi/Models/Evento.dart';
 import 'package:lexi/components/WelcomeGif.dart';
 import 'package:lexi/pages/HomePage.dart';
 import 'package:lexi/pages/login/ForgotPassword.dart';
-import 'package:lexi/pages/login/LoginPage.dart';
 import 'package:lexi/utils/util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class PasswordPage extends StatefulWidget {
   String email;
@@ -24,6 +24,38 @@ class _PasswordPageState extends State<PasswordPage> {
   final TextEditingController passwordController = TextEditingController();
   bool _obscureText = true;
   List<Evento> eventos = [];
+
+  Future<void> fetchEventosAsync() async {
+    List<Evento> fetchedEventos = await fetchEventos();
+    print("Lista de eventos" + fetchedEventos.toString());
+    setState(() {
+      eventos = fetchedEventos;
+    });
+    // 4) Si había un eventId pendiente, lo proceso ahora
+    print("eventos totales: ${eventos.length}");
+  }
+
+  Future<List<Evento>> fetchEventos() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String userProfileId = prefs.getString('userProfileId') ?? "";
+      print("userProfileId: $userProfileId");
+      final response = await http
+          .get(Uri.parse(Utils.baseUrl + 'events?profileId=$userProfileId'));
+      if (response.statusCode == 200) {
+        List<dynamic> jsonResponse = jsonDecode(response.body);
+        print("Eventos en Gijon: " + jsonResponse.toString());
+        return jsonResponse.map((event) => Evento.fromJson(event)).toList();
+      } else {
+        print("Error al cargar eventos" + response.body);
+        throw Exception('Failed to load events');
+      }
+    } catch (e) {
+      print("Error al obtener eventos: $e");
+    }
+    return [];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,6 +196,9 @@ class _PasswordPageState extends State<PasswordPage> {
                           if (data['fcm'] != null) {
                             prefs.setString('fcm', data['fcm']);
                           }
+
+                          await fetchEventosAsync();
+
                           goToHome(widget.email);
                           // Puedes guardar estos valores o realizar otras operaciones
                         } else if (response.statusCode == 400) {

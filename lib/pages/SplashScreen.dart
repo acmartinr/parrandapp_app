@@ -142,12 +142,13 @@ class _SplashScreenState extends State<SplashScreen> {
       return IntroCarousel();
     }
 
-    // No es primera vez: programo la navegación a HomePage
+    // No es primera vez: programo la navegación a HomePage]
+    /*
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => HomePage(widget.eventos)),
       );
-    });
+    });*/
 
     // Mientras esperamos el pushReplacement, devuelvo algo neutro,
     // podrías devolver un Scaffold vacío o un SizedBox.shrink()

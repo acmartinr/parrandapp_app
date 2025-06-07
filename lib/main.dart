@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:lexi/Models/Evento.dart';
@@ -25,6 +26,15 @@ void main() async {
   // 2️⃣ Lo pasamos a preserve()
   FlutterNativeSplash.preserve(widgetsBinding: binding);
 
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Color(0xFDFDFD), // Color de la barra de estado
+      statusBarIconBrightness: Brightness.dark, // Color de los iconos
+      statusBarBrightness:
+          Brightness.dark, // Para iOS: estilo de la barra de estado
+    ),
+  );
+
   runApp(OverlaySupport(child: MyApp()));
 }
 
@@ -43,7 +53,17 @@ class MyApp extends StatelessWidget {
         // agrega otros si quieres
       ],
       title: 'Parrandapp',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.white,
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.dark,
+          ),
+        ),
+      ),
       home: PreloadPage(),
     );
   }

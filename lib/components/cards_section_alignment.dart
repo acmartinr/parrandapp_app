@@ -111,7 +111,8 @@ class CardsSectionState extends State<CardsSectionAlignment>
         widget.eventos.elementAt(cardsCounter - 3).name.toString();
     String placeName =
         widget.eventos.elementAt(cardsCounter - 3).place_name.toString();
-    String date = widget.eventos.elementAt(cardsCounter - 3).date.toString();
+    String date =
+        widget.eventos.elementAt(cardsCounter - 3).start_date.toString();
 
     Share.share(
         "¡Hola! Te recomiendo este evento que encontré en la app de Parrandapp: " +
@@ -204,8 +205,8 @@ class CardsSectionState extends State<CardsSectionAlignment>
     }
   }
 
-  Future<bool> callLikeEvent(String userBackId, String eventId, bool like,
-      bool multipleEvents) async {
+  Future<bool> callLikeEvent(
+      String userBackId, String eventId, bool like, bool multipleEvents) async {
     print("EventId" + eventId);
     print("UserId" + userBackId);
 
@@ -483,17 +484,17 @@ class CardsSectionState extends State<CardsSectionAlignment>
       String idStr = prefs.getInt('id').toString();
       String eventId = widget.eventos.elementAt(cardIndex).id.toString();
       String startDate =
-      widget.eventos.elementAt(cardsCounter - 3).start_date.toString();
+          widget.eventos.elementAt(cardsCounter - 3).start_date.toString();
       String endDate =
-      widget.eventos.elementAt(cardsCounter - 3).end_date.toString();
+          widget.eventos.elementAt(cardsCounter - 3).end_date.toString();
       bool multipleEvents =
           startDate != endDate && startDate.isNotEmpty && endDate.isNotEmpty;
 
       EventService eventService = EventService(baseUrl: Utils.baseUrl);
 
       try {
-        final response =
-            await eventService.likeEvent(idStr, eventId, likeEvent,multipleEvents);
+        final response = await eventService.likeEvent(
+            idStr, eventId, likeEvent, multipleEvents);
         print('Response status: ${response.statusCode}, likeEvent: $likeEvent');
         if (response.statusCode == 200 && likeEvent) {
           _incrementNotificationOnce();
